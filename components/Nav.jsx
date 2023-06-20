@@ -10,7 +10,7 @@ const Nav = () => {
 
   const [providers, setProviders] = useState(null);
   const [toggleDropDown, setToggleDropDown] = useState(false);
-  console.log(session);
+  // console.log(session);
   useEffect(() => {
     const fetchProviders = async () => {
       const response = await getProviders();
