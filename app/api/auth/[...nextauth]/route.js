@@ -16,26 +16,30 @@ const handler = NextAuth({
       const sessionUser = await User.findOne({
         email: session.user.email,
       });
+
       session.user.id = sessionUser._id.toString();
+
+      console.log(session);
       return session;
     },
     async signIn({ user }) {
       try {
+        console.log(user.name);
         await connectToDB();
-        //check if a user already exists
+        // check if a user already exists
         const userExists = await User.findOne({
           email: user.email,
         });
-
-        //if not, create a new user
+        console.log("inside route");
+        // if not, create a new user
         if (!userExists) {
           await User.create({
             email: user.email,
             username: user.name.replace(" ", "").toLowerCase(),
             image: user.image,
           });
-          console.log("create new user");
         }
+
         return true;
       } catch (error) {
         console.log(error);
